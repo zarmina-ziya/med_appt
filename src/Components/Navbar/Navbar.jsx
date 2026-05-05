@@ -43,7 +43,7 @@ const Navbar = () => {
       {/* Navigation Links */}
       <ul className={`nav__links ${menuOpen ? "active" : ""}`}>
         <li className="link">
-          <a href="../Landing_Page/LandingPage.html">Home</a>
+          <a href="../Landing_Page/LandingPage.jsx">Home</a>
         </li>
 
         <li className="link">
@@ -51,13 +51,13 @@ const Navbar = () => {
         </li>
 
         <li className="link">
-          <a href="../Sign_Up/Sign_Up.html">
+          <a href="../Sign_Up/Sign_Up.jsx">
             <button className="btn1">Sign Up</button>
           </a>
         </li>
 
         <li className="link">
-          <a href="../Login/Login.html">
+          <a href="../Login/Login.jsx">
             <button className="btn1">Login</button>
           </a>
         </li>
