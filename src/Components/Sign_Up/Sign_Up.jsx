@@ -1,120 +1,78 @@
-import React from "react";
-import "./Sign_Up.css";
+// Following code has been commented with appropriate comments for your reference.
+import React, { useState } from 'react';
+import './Sign_Up.css'
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../../config';
 
-const SignUp = () => {
-  return (
-    <div className="container" style={{ marginTop: "5%" }}>
-      <div className="signup-grid">
+// Function component for Sign Up form
+const Sign_Up = () => {
+    // State variables using useState hook
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [showerr, setShowerr] = useState(''); // State to show error messages
+    const navigate = useNavigate(); // Navigation hook from react-router
 
-        {/* Title */}
-        <div className="signup-text">
-          <h1>Sign Up</h1>
+    // Function to handle form submission
+    const register = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        // API Call to register user
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+            }),
+        });
+
+        const json = await response.json(); // Parse the response JSON
+
+        if (json.authtoken) {
+            // Store user data in session storage
+            sessionStorage.setItem("auth-token", json.authtoken);
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("phone", phone);
+            sessionStorage.setItem("email", email);
+
+            // Redirect user to home page
+            navigate("/");
+            window.location.reload(); // Refresh the page
+        } else {
+            if (json.errors) {
+                for (const error of json.errors) {
+                    setShowerr(error.msg); // Show error messages
+                }
+            } else {
+                setShowerr(json.error);
+            }
+        }
+    };
+
+    // JSX to render the Sign Up form
+    return (
+        <div className="container" style={{marginTop:'5%'}}>
+            <div className="signup-grid">
+                <div className="signup-form">
+                    <form method="POST" onSubmit={register}>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className="form-control" placeholder="Enter your email" aria-describedby="helpId" />
+                            {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
+                        </div>
+                        {/* Apply similar logic for other form elements like name, phone, and password to capture user information */}
+                    </form>
+                </div>
+            </div>
         </div>
+        /* Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code. */
+    );
+}
 
-        {/* Login link */}
-        <div className="signup-text1" style={{ textAlign: "left" }}>
-          Already a member?{" "}
-          <span>
-            <a href="../Login/Login.html" style={{ color: "#2190FF" }}>
-              Login
-            </a>
-          </span>
-        </div>
-
-        {/* Form */}
-        <div className="signup-form">
-          <form>
-
-            {/* Name */}
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                required
-                className="form-control"
-                placeholder="Enter your name"
-              />
-            </div>
-
-            {/* Phone */}
-            <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                required
-                className="form-control"
-                placeholder="Enter your phone number"
-              />
-            </div>
-
-            {/* Email */}
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                required
-                className="form-control"
-                placeholder="Enter your email"
-              />
-            </div>
-
-            {/* Role */}
-            <div className="form-group">
-              <label htmlFor="role">Role</label>
-              <select
-                name="role"
-                id="role"
-                required
-                className="form-control"
-              >
-                <option value="">Select your role</option>
-                <option value="patient">Patient</option>
-                <option value="doctor">Doctor</option>
-              </select>
-            </div>
-
-            {/* Password */}
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                required
-                className="form-control"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            {/* Buttons */}
-            <div className="btn-group">
-              <button
-                type="submit"
-                className="btn btn-primary mb-2 mr-1"
-              >
-                Submit
-              </button>
-
-              <button
-                type="reset"
-                className="btn btn-danger mb-2"
-              >
-                Reset
-              </button>
-            </div>
-
-          </form>
-        </div>
-
-      </div>
-    </div>
-  );
-};
-
-export default SignUp;
+export default Sign_Up; // Export the Sign_Up component for use in other components
