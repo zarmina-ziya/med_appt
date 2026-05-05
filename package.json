@@ -10,8 +10,11 @@
     "preview": "vite build && vite preview --host"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "font-awesome": "^4.7.0",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.15.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
