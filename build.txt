@@ -1,0 +1,18 @@
+ npm run preview
+
+> med_appt@0.0.0 preview
+> vite build && vite preview --host
+
+vite v8.0.10 building client environment for production...
+✓ 40 modules transformed.
+computing gzip size...
+dist/index.html                   0.84 kB │ gzip:  0.44 kB
+dist/assets/index-DxFuGEU4.css    8.78 kB │ gzip:  2.69 kB
+dist/assets/index-DA6WhT8l.js   242.57 kB │ gzip: 77.03 kB
+
+✓ built in 405ms
+Port 4173 is in use, trying another one...
+Port 4174 is in use, trying another one...
+  ➜  Local:   http://localhost:4175/
+  ➜  Network: http://172.17.55.109:4175/
+  ➜  press h + enter to show help

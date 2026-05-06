@@ -1,52 +1,21 @@
-.doctor-card {
-  width: 280px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  background: white;
-  margin: 10px;
-}
-
-.doctor-card-image img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.doctor-card-details-container {
+.doctor-card-options-container {
   padding: 15px;
+  text-align: center;
+  border-top: 1px solid #eee;
 }
 
-.doctor-name {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.doctor-specialty {
-  color: gray;
-}
-
-.doctor-experience {
-  margin: 5px 0;
-}
-
-.doctor-rating .stars {
-  color: gold;
-  margin-left: 5px;
-}
-
-.book-appointment-btn {
-  width: 100%;
-  background: #007bff;
+.cancel-appointment-btn {
+  background-color: #dc3545; /* Red for cancellation */
   color: white;
   border: none;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
+  font-weight: bold;
 }
 
-.book-appointment-btn div:first-child {
+.booking-conf-text {
+  color: #28a745; /* Green for success */
   font-weight: bold;
+  margin-bottom: 10px;
 }
