@@ -1,31 +1,30 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import LandingPage from "./Components/Landing_Page/LandingPage";
-import SignUp from "./Components/Sign_Up/Sign_Up";
-import Login from "./Components/Login/Login";
-import BookingConsultation from "./Components/BookingConsultation";
-// Import the Notification component
-import Notification from "./Components/Notification/Notification";
+import Navbar from './Components/Navbar/Navbar'; // Assuming Navbar is already created
+import Landing_Page from './Components/Landing_Page/LandingPage'; // Import LandingPage component
+import Login from './Components/Login/Login'; // Import Login component
+import Sign_Up from './Components/Sign_Up/Sign_Up'; // Import Sign_Up component
+import BookingConsultation from './Components/BookingConsultation';
+import Notification from './Components/Notification/Notification';
+import ReviewForm from './Components/ReviewForm/ReviewForm';
+import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <BrowserRouter>
-        {/* Wrap the routes with Notification. 
-          Note: Notification component already contains <Navbar />, 
-          so we don't need to add it here separately.
-        */}
-        <Notification>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/booking-consultation" element={<BookingConsultation />} />
-          </Routes>
-        </Notification>
+        <Navbar /> {/* Navbar will render on all pages */}
+        <Routes>
+          <Route path="/" element={<Landing_Page />} /> {/* Set LandingPage as the home route */}
+          <Route path="/login" element={<Login />} /> {/* Set Login as a route */}
+          <Route path="/signup" element={<Sign_Up />} /> {/* Set Sign_Up as a route */}
+          <Route path="/booking-consultation" element={<BookingConsultation />} />
+          <Route path="/notification" element={<Notification/>}/>
+          <Route path="/reviews" element={<ReviewForm/>}/>
+          <Route path="/report" element={<ReportsLayout/>}/>   
+        </Routes>
       </BrowserRouter>
-    </div>
+    </>
   );
 }
 

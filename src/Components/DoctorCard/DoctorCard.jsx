@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AppointmentForm from '../AppointmentForm/AppointmentForm';
+import AppointmentFormIC from '../AppointmentFormIC/AppointmentFormIC';
 import './DoctorCard.css';
 
 const DoctorCard = ({ name, specialty, experience, rating, image, profile }) => {
@@ -83,7 +83,7 @@ const DoctorCard = ({ name, specialty, experience, rating, image, profile }) => 
             <p className="experience-subtext">{experience} years experience</p>
           </div>
 
-          <AppointmentForm 
+          <AppointmentFormIC 
             doctorName={name} 
             onSubmit={handleBookingSubmit} 
           />

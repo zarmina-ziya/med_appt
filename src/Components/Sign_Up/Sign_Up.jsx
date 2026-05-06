@@ -1,6 +1,5 @@
-// Following code has been commented with appropriate comments for your reference.
 import React, { useState } from 'react';
-import './Sign_Up.css'
+import './Sign_Up.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../../config';
 
@@ -46,9 +45,7 @@ const Sign_Up = () => {
             window.location.reload(); // Refresh the page
         } else {
             if (json.errors) {
-                for (const error of json.errors) {
-                    setShowerr(error.msg); // Show error messages
-                }
+                setShowerr(json.errors.map((error) => error.msg).join(', '));
             } else {
                 setShowerr(json.error);
             }
@@ -57,22 +54,72 @@ const Sign_Up = () => {
 
     // JSX to render the Sign Up form
     return (
-        <div className="container" style={{marginTop:'5%'}}>
+        <div className="container" style={{marginTop: '5%'}}>
             <div className="signup-grid">
                 <div className="signup-form">
                     <form method="POST" onSubmit={register}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
-                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className="form-control" placeholder="Enter your email" aria-describedby="helpId" />
-                            {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
+                            <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                name="email"
+                                id="email"
+                                className="form-control"
+                                placeholder="Enter your email"
+                                required
+                            />
                         </div>
-                        {/* Apply similar logic for other form elements like name, phone, and password to capture user information */}
+                        <div className="form-group">
+                            <label htmlFor="name">Name</label>
+                            <input
+                                value={name}
+                                type="text"
+                                onChange={(e) => setName(e.target.value)}
+                                name="name"
+                                id="name"
+                                className="form-control"
+                                placeholder="Enter your name"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="phone">Phone</label>
+                            <input
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                type="tel"
+                                name="phone"
+                                id="phone"
+                                className="form-control"
+                                placeholder="Enter your phone number"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                                name="password"
+                                id="password"
+                                className="form-control"
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </div>
+                        {showerr && <div className="err" style={{color: 'red'}}>{showerr}</div>}
+                        <button type="submit" className="btn btn-primary">Sign Up</button>
                     </form>
+                    <div>
+                        Already have an account? <Link to="/login">Login here</Link>
+                    </div>
                 </div>
             </div>
         </div>
-        /* Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code. */
     );
 }
 
-export default Sign_Up; // Export the Sign_Up component for use in other components
+export default Sign_Up;

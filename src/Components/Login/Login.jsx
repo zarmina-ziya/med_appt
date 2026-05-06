@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { API_URL } from "../../../config";
-import './Login.css'; // Ensure your CSS is imported
+import { API_URL } from '../../../config';
 
 const Login = () => {
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showerr, setShowerr] = useState(''); // State for error messages
+
   const navigate = useNavigate();
 
-  // If user is already authenticated, redirect to home page
   useEffect(() => {
     if (sessionStorage.getItem("auth-token")) {
       navigate("/");
     }
   }, [navigate]);
 
-  // Consolidated Handle Submit (Login) Function
   const login = async (e) => {
     e.preventDefault();
 
-    // POST request to the login API
-    const res = await fetch(`${API_URL}/api/auth/login`, {
+    // Send a POST request to the login API endpoint
+    const response = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,26 +30,20 @@ const Login = () => {
       }),
     });
 
-    const json = await res.json();
-
+    const json = await response.json();
     if (json.authtoken) {
-      // Store items in session storage
+      // If authentication token is received, store it in session storage
       sessionStorage.setItem('auth-token', json.authtoken);
       sessionStorage.setItem('email', email);
 
-      // Redirect to home page
+      // Redirect to home page and reload the window
       navigate('/');
-      
-      // IMPORTANT: Force a window reload so the Navbar updates its state
       window.location.reload();
     } else {
-      // Handle server-side validation or credential errors
       if (json.errors) {
-        for (const error of json.errors) {
-          alert(error.msg);
-        }
+        setShowerr(json.errors.map((error) => error.msg).join(', '));
       } else {
-        alert(json.error || "Invalid credentials. Please try again.");
+        setShowerr(json.error);
       }
     }
   };
@@ -65,7 +58,7 @@ const Login = () => {
           <div className="login-text">
             Are you a new member? 
             <span>
-              <Link to="/sign-up" style={{ color: '#2190FF' }}>
+              <Link to="/signup" style={{ color: '#2190FF' }}>
                 Sign Up Here
               </Link>
             </span>
@@ -75,18 +68,17 @@ const Login = () => {
             <form onSubmit={login}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  type="email" 
-                  name="email" 
-                  id="email" 
-                  className="form-control" 
-                  placeholder="Enter your email" 
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="form-control"
+                  placeholder="Enter your email"
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
@@ -100,7 +92,7 @@ const Login = () => {
                   required
                 />
               </div>
-
+              {showerr && <div className="err" style={{color: 'red'}}>{showerr}</div>}
               <div className="btn-group">
                 <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">
                   Login
@@ -112,6 +104,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
