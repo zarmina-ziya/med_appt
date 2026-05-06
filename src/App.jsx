@@ -6,7 +6,7 @@ import Login from './Components/Login/Login'; // Import Login component
 import Sign_Up from './Components/Sign_Up/Sign_Up'; // Import Sign_Up component
 import BookingConsultation from './Components/BookingConsultation';
 import Notification from './Components/Notification/Notification';
-import ReviewForm from './Components/ReviewForm/ReviewForm';
+import GiveReview from './Components/GiveReview/GiveReview';
 import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
           <Route path="/signup" element={<Sign_Up />} /> {/* Set Sign_Up as a route */}
           <Route path="/booking-consultation" element={<BookingConsultation />} />
           <Route path="/notification" element={<Notification/>}/>
-          <Route path="/reviews" element={<ReviewForm/>}/>
+          <Route path="/reviews" element={<GiveReview/>}/>
           <Route path="/report" element={<ReportsLayout/>}/>   
         </Routes>
       </BrowserRouter>
